@@ -1,0 +1,25 @@
+{
+  "name": "turbo-shadow",
+  "version": "1.0.0",
+  "description": "Provides event handling and an HTMLElement mixin for Declarative Shadow DOM in Hotwire Turbo",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whitefusionhq/turbo-shadow.git"
+  },
+  "keywords": [
+    "Turbo",
+    "Declarative Shadow DOM",
+    "Web Components"
+  ],
+  "author": "Jared White",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/whitefusionhq/turbo-shadow/issues"
+  },
+  "homepage": "https://github.com/whitefusionhq/turbo-shadow#readme"
+}
