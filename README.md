@@ -1,6 +1,6 @@
 # Turbo Shadow
 
-Provides event handling and an HTMLElement mixin for Declarative Shadow DOM in Hotwire Turbo.
+Provides event handling and an HTMLElement mixin for [Declarative Shadow DOM](https://web.dev/declarative-shadow-dom) in [Hotwire Turbo](https://turbo.hotwired.dev).
 
 ## Quick Install
 
@@ -70,7 +70,7 @@ Keep reading for further details…
 
 [Hotwire Turbo](https://turbo.hotwired.dev) is an excellent JavaScript library that can take your MPA (Multi-Page Application) and make it feel more like an SPA (Single-Page Application): with fast page changes which you can augment with slick CSS transitions, frame-like support for loading and updating specific regions of a page in real-time, and a feature called Streams which can surgically alter the DOM from server-driven events.
 
-[Declarative Shadow DOM](https://web.dev/declarative-shadow-dom) (DSD) is an emerging spec for Web Components which lets you define the "shadow DOM" template from a component using server-rendered HTML. So instead of writing out this:
+[Declarative Shadow DOM](https://web.dev/declarative-shadow-dom) (DSD) is an emerging spec for Web Components which lets you define the "shadow DOM" template for a component using server-rendered HTML. So instead of writing out this:
 
 ```html
 <h1>Hello World from a Web Server</h1>
@@ -118,7 +118,7 @@ Any shadow root templates in the `htmlContaintingDSD` would be ignored…aka the
 
 This is all described in the [DSD spec explainer](https://github.com/mfreed7/declarative-shadow-dom#mitigation).
 
-Will Turbo itself get updated in the future to support this? Possibly, but unlikely until the DSD spec is itself supported by all major browsers. Until that time, you will need a Turbo-specific polyfill to handle full DSD suport.
+Will Turbo itself get updated in the future to support this? Possibly, but unlikely until the DSD spec is itself supported by all major browsers. Until that time, you will need a Turbo-specific polyfill to handle full DSD support.
 
 **Introducing: Turbo Shadow.** 😎
 
