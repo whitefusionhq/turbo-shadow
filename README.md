@@ -18,6 +18,12 @@ Add this to your JavaScript entrypoint (likely `index.js`) right after you impor
 import * as TurboShadow from "turbo-shadow"
 ```
 
+And add this to your HTML head (unfortunately Turbo's client-side caching will strip out all shadow roots).
+
+```html
+<meta name="turbo-cache-control" content="no-cache" />
+```
+
 Now when you write a web component by subclassing `HTMLElement` (or some subclass of that), you can use the `ShadowRootable` mixin along with the `shadowRootAttached` promise to ensure by the time you run code within your `connectedCallback`, the shadow root with server-sent declarative markup has already been attached.
 
 ```html
