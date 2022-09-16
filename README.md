@@ -1,6 +1,6 @@
 # Turbo Shadow
 
-Provides event handling and an HTMLElement mixin for [Declarative Shadow DOM](https://web.dev/declarative-shadow-dom) in [Hotwire Turbo](https://turbo.hotwired.dev).
+Provides event handling and an HTMLElement mixin for [Declarative Shadow DOM](https://web.dev/declarative-shadow-dom) in [Hotwire Turbo](https://turbo.hotwired.dev). (Requires the latest [Turbo 7.2 release](https://github.com/hotwired/turbo/releases), currently as a release candidate.)
 
 ## Quick Install
 
