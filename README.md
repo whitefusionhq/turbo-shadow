@@ -1,6 +1,8 @@
 # Turbo Shadow
 
-Provides event handling and an HTMLElement mixin for [Declarative Shadow DOM](https://web.dev/declarative-shadow-dom) in [Hotwire Turbo](https://turbo.hotwired.dev). (Requires the latest [Turbo 7.2 release](https://github.com/hotwired/turbo/releases), currently as a release candidate.)
+Provides event handling and an HTMLElement mixin for [Declarative Shadow DOM](https://web.dev/declarative-shadow-dom) support in [Hotwire Turbo](https://turbo.hotwired.dev).
+
+Requires Turbo 7.2 or higher.
 
 ## Quick Install
 
@@ -86,7 +88,7 @@ Keep reading for further details…
 </howdy-folks>
 ```
 
-You can write out this (or generate it automatically from a template engine):
+You can write out this (or generate it automatically from a template engine of some kind):
 
 ```html
 <h1>Hello World from a Web Server</h1>
@@ -110,13 +112,13 @@ You can write out this (or generate it automatically from a template engine):
 
 First of all, DSD is only natively supported in Chromium browsers. You would need to use a polyfill for Firefox and Safari. However, there are no polyfills out there (that I'm aware of) which support Turbo's event system (for Drive, Frames, and Streams). And even if there were, they don't provide extra support for the custom element to get notified when a shadow root has actually been attached. Expecting it to be in place already when `connectedCallback` gets triggered is a no-go, because Turbo has already attached new elements to the document prior to the triggering of Turbo events. Something would need to intercept the Turbo events, run a polyfill, and then notify the elements that the shadow roots are now attached.
 
-In addition, Turbo currently isn't even compatible with the native DSD support in Chromium, because standard HTML parsing methods in JavaScript don't support DSD for security reasons. For example, if you were to run this:
+In addition, Turbo currently isn't directly compatible with the native DSD support in Chromium, because standard HTML parsing methods in JavaScript don't support DSD for security reasons. For example, if you were to run this:
 
 ```js
 (new DOMParser()).parseFromString(htmlContainingDSD, "text/html")
 ```
 
-Any shadow root templates in the `htmlContaintingDSD` would be ignored…aka they'd just remain inert templates in the output node tree. To get real attached shadow DOM roots, you'd have to supply an extra argument:
+Any shadow root templates in the `htmlContainingDSD` would be ignored…aka they'd just remain inert templates in the output node tree. To get real attached shadow DOM roots, you'd have to supply an extra argument:
 
 ```js
 (new DOMParser()).parseFromString(htmlContainingDSD, "text/html", { includeShadowRoots: true })
