@@ -31,7 +31,7 @@ Now when you write a web component by subclassing `HTMLElement` (or some subclas
 ```html
 <!-- HTML sent from the server and intercepted by Turbo -->
 <test-dsd>
-  <template shadowroot="open">
+  <template shadowrootmode="open">
     <p>Your message is:</p>
     <slot></slot>
   </template>
@@ -60,7 +60,7 @@ Something to note: the client-side JavaScript component definition is actually o
 
 ```html
 <div style="padding: 10px; background: lightcyan">
-  <template shadowroot="open">
+  <template shadowrootmode="open">
     <p>Just some regular ol' markup.</p>
     <style>
       /* Styles are fully encapsulated because they only apply to the shadow root! */
@@ -94,7 +94,7 @@ You can write out this (or generate it automatically from a template engine of s
 <h1>Hello World from a Web Server</h1>
 
 <howdy-folks>
-  <template shadowroot="open">
+  <template shadowrootmode="open">
     <!-- Now we get to provide the shadow DOM! -->
     <p>Isn't this amazing?!</p>
 
@@ -110,9 +110,9 @@ You can write out this (or generate it automatically from a template engine of s
 
 **You would think that Declarative Shadow DOM and Turbo would be a match made in heaven! Both resolve around the centrality of HTML. But…you would be wrong. 😭**
 
-First of all, DSD is only natively supported in Chromium browsers. You would need to use a polyfill for Firefox and Safari. However, there are no polyfills out there (that I'm aware of) which support Turbo's event system (for Drive, Frames, and Streams). And even if there were, they don't provide extra support for the custom element to get notified when a shadow root has actually been attached. Expecting it to be in place already when `connectedCallback` gets triggered is a no-go, because Turbo has already attached new elements to the document prior to the triggering of Turbo events. Something would need to intercept the Turbo events, run a polyfill, and then notify the elements that the shadow roots are now attached.
+First of all, DSD is only natively supported in Chromium and (recently) WebKit browsers. You would need to use a polyfill for Firefox. However, there are no polyfills out there (that I'm aware of) which support Turbo's event system (for Drive, Frames, and Streams). And even if there were, they don't provide extra support for the custom element to get notified when a shadow root has actually been attached. Expecting it to be in place already when `connectedCallback` gets triggered is a no-go, because Turbo has already attached new elements to the document prior to the triggering of Turbo events. Something would need to intercept the Turbo events, run a polyfill, and then notify the elements that the shadow roots are now attached.
 
-In addition, Turbo currently isn't directly compatible with the native DSD support in Chromium, because standard HTML parsing methods in JavaScript don't support DSD for security reasons. For example, if you were to run this:
+In addition, Turbo currently isn't directly compatible with the native DSD support, because standard HTML parsing methods in JavaScript don't support DSD for security reasons. For example, if you were to run this:
 
 ```js
 (new DOMParser()).parseFromString(htmlContainingDSD, "text/html")
@@ -126,7 +126,7 @@ Any shadow root templates in the `htmlContainingDSD` would be ignored…aka they
 
 This is all described in the [DSD spec explainer](https://github.com/mfreed7/declarative-shadow-dom#mitigation).
 
-Will Turbo itself get updated in the future to support this? Possibly, but unlikely until the DSD spec is itself supported by all major browsers. Until that time, you will need a Turbo-specific polyfill to handle full DSD support.
+Will Turbo itself get updated in the future to support this? Possibly, but unlikely until this aspect of the DSD spec is itself supported by all major browsers. Until that time, you will need a Turbo-specific polyfill to handle full DSD support.
 
 **Introducing: Turbo Shadow.** 😎
 

@@ -16,10 +16,10 @@ export const ShadowRootable = (superClass) => class extends superClass {
 
 export function attachShadowRoots(root, callback = null) {
   const shadowNodes = []
-  root.querySelectorAll("template[shadowroot]").forEach(template => {
+  root.querySelectorAll("template[shadowrootmode]").forEach(template => {
     let shadowRoot
     const node = template.parentNode
-    const mode = template.getAttribute("shadowroot")
+    const mode = template.getAttribute("shadowrootmode")
     try {
       shadowRoot = node.attachShadow({ mode })
       shadowRoot.appendChild(template.content)
