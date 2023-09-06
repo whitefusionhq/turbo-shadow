@@ -6,7 +6,7 @@ export const ShadowRootable = (superClass) => class extends superClass {
   }
 
   get shadowRootAttached() {
-    if (this.shadowRoot) return Promise.resolve()
+    if (this.shadowRoot || !this.querySelector("template[shadowrootmode]")) return Promise.resolve()
 
     const promise = new Promise(resolve => this.#shadowRootConnected = resolve)
 
