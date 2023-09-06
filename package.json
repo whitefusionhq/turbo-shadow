@@ -1,6 +1,6 @@
 {
   "name": "turbo-shadow",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Provides event handling and an HTMLElement mixin for Declarative Shadow DOM in Hotwire Turbo.",
   "main": "src/index.js",
   "type": "module",
