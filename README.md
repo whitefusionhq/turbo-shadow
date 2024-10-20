@@ -1,5 +1,10 @@
 # Turbo Shadow
 
+> [!WARNING]
+> I've migrated away from using the Hotwire stack (see [this blog post](https://www.bridgetownrb.com/future/road-to-bridgetown-2.0-escaping-burnout/#the-37signals-problem) for the reasons why I now avoid 37signals-owned codebases), so I don't intend to develop this utility any further. I'll be happy to accept PRs and cut a new release, but beyond that, consider this plugin "done".
+
+----
+
 Provides event handling and an HTMLElement mixin for [Declarative Shadow DOM](https://web.dev/declarative-shadow-dom) support in [Hotwire Turbo](https://turbo.hotwired.dev).
 
 Requires Turbo 7.2 or higher.
@@ -110,24 +115,14 @@ You can write out this (or generate it automatically from a template engine of s
 
 **You would think that Declarative Shadow DOM and Turbo would be a match made in heaven! Both resolve around the centrality of HTML. But…you would be wrong. 😭**
 
-First of all, DSD is only natively supported in Chromium and (recently) WebKit browsers. You would need to use a polyfill for Firefox. However, there are no polyfills out there (that I'm aware of) which support Turbo's event system (for Drive, Frames, and Streams). And even if there were, they don't provide extra support for the custom element to get notified when a shadow root has actually been attached. Expecting it to be in place already when `connectedCallback` gets triggered is a no-go, because Turbo has already attached new elements to the document prior to the triggering of Turbo events. Something would need to intercept the Turbo events, run a polyfill, and then notify the elements that the shadow roots are now attached.
-
-In addition, Turbo currently isn't directly compatible with the native DSD support, because standard HTML parsing methods in JavaScript don't support DSD for security reasons. For example, if you were to run this:
+First of all, while DSD is natively supported in evergreen browsers, Turbo currently isn't directly compatible with the native DSD support, because standard HTML parsing methods in JavaScript don't support DSD for security reasons. For example, if you were to run this:
 
 ```js
 (new DOMParser()).parseFromString(htmlContainingDSD, "text/html")
 ```
 
-Any shadow root templates in the `htmlContainingDSD` would be ignored…aka they'd just remain inert templates in the output node tree. To get real attached shadow DOM roots, you'd have to supply an extra argument:
+Any shadow root templates in the `htmlContainingDSD` would be ignored…aka they'd just remain inert templates in the output node tree. To get real attached shadow DOM roots, you'd need to switch to `parseHTMLUnsafe` API which is fairly new and not widely supported yet.
 
-```js
-(new DOMParser()).parseFromString(htmlContainingDSD, "text/html", { includeShadowRoots: true })
-```
-
-This is all described in the [DSD spec explainer](https://github.com/mfreed7/declarative-shadow-dom#mitigation).
-
-Will Turbo itself get updated in the future to support this? Possibly, but unlikely until this aspect of the DSD spec is itself supported by all major browsers. Until that time, you will need a Turbo-specific polyfill to handle full DSD support.
+Will Turbo itself get updated in the future to support this? Possibly. Until that time, you will need a Turbo-specific polyfill to handle full DSD support.
 
 **Introducing: Turbo Shadow.** 😎
-
-If you find any bugs or edge cases that need solving, [please file an issue!](https://github.com/whitefusionhq/turbo-shadow/issues) Otherwise, the primary goal of this library is widespread stability, so I am unlikely to add any additional features in the near future.
